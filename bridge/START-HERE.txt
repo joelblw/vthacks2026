@@ -1,0 +1,57 @@
+LinuxLink - Arch live MicroSD
+============================
+
+NEW: Troubleshoot an installed Arch system
+  Boot installed Arch normally. Mount this card, install Python if needed
+  (sudo pacman -S --needed python), then run:
+    sudo bash /path/to/mounted/card/linuxlink/install-system.sh
+  This one-time setup enables the bridge on each boot. Afterwards, plug in
+  LinuxLink and connect the phone; Troubleshoot mode is selected by default.
+  Tell it the problem or task. No physical mode button or terminal switching
+  is necessary. Keep the Windows AI companion running as before.
+  Optional local chat: sudo linuxlink-chat --mode troubleshoot
+  /mode install and /mode troubleshoot switch the local chat mode.
+  Disable the background bridge: sudo systemctl disable --now linuxlink.service
+
+1. Connect the assembled USB hub to the target computer.
+2. Boot "LinuxLink (automatic bridge)" (the new default boot entry).
+   The bridge starts when Arch automatically logs in on its first console.
+   No terminal command or network download is needed.
+
+   Manual fallback, if using the normal Arch entry:
+
+   bash /run/archiso/bootmnt/linuxlink/start-live.sh
+
+3. Keep the app server running on your separate Windows computer.
+   LinuxLink chat opens automatically on the Arch computer.
+   Type quit or exit to return to the regular terminal.
+   Type linuxlink-chat in the regular terminal to reopen chat.
+   Computer chat is relayed through the phone to the Windows AI companion;
+   the microSD contains no API key. Keep the phone app open and connected.
+   Refresh the phone app once after installing this update.
+   In computer chat: /disks, /disk DEVICE, /run, /auto, /help.
+   Test mode: type "install linux" to automatically select the only eligible
+   unmounted internal disk and begin installation without confirmations.
+   With multiple disks, specify "install linux on /dev/DEVICE".
+   Ctrl+C pauses the current operation. Use quit at the prompt to leave.
+4. On the phone, connect to LinuxLink.
+5. Open "Choose installation disk" and tap "Inspect computer".
+   This checks the bridge and runs a read-only inspection immediately.
+
+This starts the bridge in the live system; it does not install Linux or
+partition/format the target computer's disks. The bridge permits the paired
+phone to execute commands as root when you submit them from the app.
+
+The normal Arch boot entries remain available without automatic startup.
+Boot configuration backups are stored in linuxlink/backup-<timestamp>/.
+
+Troubleshooting:
+  systemctl status linuxlink
+  journalctl -u linuxlink -f
+  ls -l /dev/serial/by-id/
+
+If the ESP32 does not appear, unplug/reconnect its USB cable without holding
+BOOT. The USB serial identity should include LINUXLINK-S3-001.
+
+Stop the bridge:
+  systemctl stop linuxlink

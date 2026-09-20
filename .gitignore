@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+linuxlink.local.json
+.venv/
+firmware/LinuxLink/config.h
+build/
+**/.gradle/
+**/build/
+.DS_Store

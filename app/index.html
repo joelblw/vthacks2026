@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><title>LinuxLink</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head>
+<body><main>
+<header><h1>LinuxLink</h1><span id="dot" class="dot"></span><span id="mode" class="badge">OFFLINE</span></header>
+<p id="status" role="status">Connect your device to get started.</p>
+<div class="actions"><button id="connect" class="primary">Connect LinuxLink</button><button id="disconnect" hidden>Disconnect</button></div>
+<div id="session" hidden>
+<div id="mode-selector" hidden><label for="assistant-mode">Mode</label><select id="assistant-mode"><option value="install">Install Arch</option><option value="troubleshoot">Troubleshoot / do a task</option></select></div>
+<p id="mode-help" class="hint">Install Arch from the bootable microSD.</p>
+<button id="troubleshoot" disabled>Troubleshoot — open Ctrl+Alt+F3</button>
+<button id="test-typing" hidden>Test keyboard typing</button>
+<button id="install-mode" hidden>Back to installer</button>
+<button id="mount-arch-card" hidden>Mount setup card</button>
+<button id="start-arch-bridge" hidden>Install Arch connection</button>
+<label class="check"><input id="fast-test" type="checkbox" checked>Fast test mode — “install linux” selects the only eligible internal disk and runs without confirmations</label>
+<section class="chat-section" aria-label="Installation assistant">
+<div class="actions"><button id="auto-start" disabled>Install automatically</button><button id="auto-pause" hidden>Pause automatic install</button></div>
+<p id="auto-status" class="hint" role="status">Basic defaults: GNOME desktop, archlinux, user linuxuser, UTC. Uses your stated preferences when available. Select a disk first. Commands run automatically; keep this page open.</p>
+<div id="chat" role="log" aria-label="Conversation" aria-live="polite"></div>
+<p id="suggestion" role="status"></p>
+<div class="actions"><button id="proposal-run" hidden>Review installation step</button><button id="continue" hidden>Continue</button><button id="retry" hidden>Retry message</button><button id="cancel" disabled>Stop command</button></div>
+<label for="goal">Your message</label><textarea id="goal" rows="2" maxlength="4000" placeholder="Help me install Arch with a desktop..."></textarea>
+<div class="actions composer"><button id="ask" class="primary">Send</button><button id="mic" aria-pressed="false">Microphone</button></div>
+<p id="voice-status" class="hint" role="status">Voice fills in your message. Review it, then press Send.</p>
+<p class="hint">Chat and recent command output go to your AI provider. Do not enter passwords. Keep this page open to retain your conversation.</p>
+</section>
+<details id="disk-options"><summary>Choose installation disk</summary>
+<p>Whole-disk installation erases the chosen disk. Inspect the computer first.</p>
+<button id="arch-inspect" disabled>Inspect computer</button><p id="arch-status" role="status">Connect to the Arch bridge to inspect disks.</p>
+<label for="arch-disk">Installation disk</label><select id="arch-disk"><option value="">Inspect first</option></select>
+<div id="disk-confirmation" hidden><label for="arch-confirm">Type the selected disk path to confirm erasure</label><input id="arch-confirm" autocomplete="off" spellcheck="false">
+<label class="check"><input id="arch-erase" type="checkbox">I authorize erasing all data on this disk and have saved anything I need.</label>
+</div><button id="arch-next" disabled>Use this disk (erase allowed)</button></details>
+<details><summary>Connection and manual controls</summary>
+<div class="actions"><button id="demo">Try demo</button><button id="ping" disabled>Check Linux connection</button></div>
+<p id="ai-status" role="status">Checking AI configuration...</p><button id="test-ai">Test AI connection</button>
+<div id="token-field" hidden><label for="token">Companion access token</label><input id="token" type="password" autocomplete="off"></div>
+<label for="command">Command</label><textarea id="command" rows="3" spellcheck="false"></textarea>
+<div class="actions"><button id="run" disabled>Review &amp; run</button><label class="timeout">Timeout (s)<input id="timeout" type="number" min="1" max="3600" value="120"></label></div>
+<p>Boot keyboard controls</p><div class="actions"><button data-key="F2">F2</button><button data-key="F12">F12</button><button data-key="UP">Up</button><button data-key="DOWN">Down</button><button data-key="ENTER">Enter</button><button data-key="ESC">Esc</button></div></details>
+<details><summary>Terminal output</summary><button id="clear">Clear output</button><pre id="output" tabindex="0" aria-label="Command output"></pre></details>
+</div>
+</main>
+  <dialog id="review"><form method="dialog"><p class="eyebrow">REVIEW COMMAND</p><h2>Run on your computer?</h2><p>Commands run as root in the live environment and can modify or erase disks. Check the command and any target disk before continuing.</p><pre id="review-command"></pre><label class="check"><input id="ack" type="checkbox" required>I reviewed this command and its target devices.</label><div class="actions"><button value="cancel" formnovalidate>Go back</button><button value="run" class="primary">Run command</button></div></form></dialog>
+</body></html>

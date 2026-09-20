@@ -1,0 +1,11 @@
+{
+  "name": "LinuxLink",
+  "short_name": "LinuxLink",
+  "description": "LinuxLink installation and troubleshooting companion",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#276c9e",
+  "icons": [{"src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}]
+}
